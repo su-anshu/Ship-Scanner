@@ -25,7 +25,6 @@ REQUIREMENTS:
 
 import streamlit as st
 import pandas as pd
-import cv2
 import numpy as np
 from pyzbar import pyzbar
 import base64
@@ -33,8 +32,22 @@ import io
 from datetime import datetime
 import time
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-import av
 from typing import Set, List, Dict, Optional
+
+# Import cv2 and av with error handling
+try:
+    import cv2
+except ImportError as e:
+    st.error(f"OpenCV import failed: {e}")
+    st.info("Please install opencv-python-headless or ensure all system dependencies are installed.")
+    st.stop()
+
+try:
+    import av
+except ImportError as e:
+    st.error(f"PyAV import failed: {e}")
+    st.info("Please install PyAV or ensure all system dependencies are installed.")
+    st.stop()
 # Page configuration
 st.set_page_config(
     page_title="Barcode Scanner App",
